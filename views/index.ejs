@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./public/style.css">
+    <script>
+        let result =  '<%- data %>';
+        console.log(result);
+        result = result.replace(/[\[\]']+/g, '');
+        let arr = result.split(",")
+        console.log(typeof arr);
+        console.log(arr);
+        for(let i=0;i<arr.length;i++) {
+            arr[i] = arr[i].replaceAll('"', '');
+        } 
+        result = arr;
+    </script>
+</head>
+<body>
+    
+    <input id="search" type="text" placeholder="search">
+
+    <main id="main">
+        
+    </main>
+
+    <script>
+
+        let searchInput = document.getElementById("search");
+        let searchText = '' ;
+
+        searchInput.addEventListener( 'keyup' , (e) => {
+
+            
+            searchText = e.target.value ;
+            console.log(searchText);
+
+            if( searchText == '' ) {
+                showText(result)
+            } else {
+
+            }
+
+            let fileteredResult = result.filter( item => {
+                return item.includes(searchText);
+            });
+
+            console.log(fileteredResult);
+
+            showText(fileteredResult);
+
+        });
+
+        
+        let showText = (result) => {
+            let template = ``;
+            template += `<ul>`;
+            for(let i=0;i<result.length;i++) {
+                template += `
+                <a href="${result[i]}" target="_blank">
+                <li>${result[i]}</li>
+                </a>
+                `;
+            }
+            template += `</ul>`;
+            let main = document.getElementById('main');
+            main.innerHTML = template;
+        }
+
+        showText(result);
+
+    </script>
+</body>
+</html>
