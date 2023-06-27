@@ -7,7 +7,7 @@ let path = require('path');
 
 const {glob , Glob} = require('glob');
 
-app.use('/main', express.static('main'))
+app.use('/main', express.static('section mill'))
 
 app.use('/public', express.static('public'))
 
@@ -41,6 +41,7 @@ let fetchFiles = async () => {
 
   template += `<ul>`;
   for(let i=0;i<result.length;i++) {
+    result[i] = path.join( __dirname , result[i] );
     template += `<li>${result[i]}</li>`;
   }
   template += `</ul>`;

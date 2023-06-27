@@ -31,25 +31,40 @@
         let searchInput = document.getElementById("search");
         let searchText = '' ;
 
+        let typing = false;
+
         searchInput.addEventListener( 'keyup' , (e) => {
 
             
-            searchText = e.target.value ;
+            searchText = searchInput.value ;
             console.log(searchText);
 
-            if( searchText == '' ) {
+            setTimeout( () => {
+
+                if( typing == true ) {
+                    return ;
+                }
+
+                typing = true;
+
+                if( searchText == '' ) {
                 showText(result)
-            } else {
+                } else {
 
-            }
+                }
 
-            let fileteredResult = result.filter( item => {
-                return item.includes(searchText);
-            });
+                let fileteredResult = result.filter( item => {
+                    let itemLowecase = item.toLowerCase();
+                    return itemLowecase.includes(searchText.toLowerCase());
+                });
 
-            console.log(fileteredResult);
+                console.log(fileteredResult);
 
-            showText(fileteredResult);
+                showText(fileteredResult);
+
+                typing = false;
+
+            } , 1000 );
 
         });
 
@@ -59,7 +74,7 @@
             template += `<ul>`;
             for(let i=0;i<result.length;i++) {
                 template += `
-                <a href="${result[i]}" target="_blank">
+                <a href="file:///${result[i]}" target="_blank">
                 <li>${result[i]}</li>
                 </a>
                 `;
